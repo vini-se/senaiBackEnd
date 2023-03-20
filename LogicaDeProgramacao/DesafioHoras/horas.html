@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horas</title>
+</head>
+<body>
+    <div class="container container-fluid" style="text-align: center; margin-top: 15%">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>
+                CALCULADORA
+                </h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4>
+                Informe as horas e os minutos:
+                </h4>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <input type="number" id="hr1" placeholder="Horas" min="0" style="width: 100%;">
+            </div>
+            <div class="col-6">
+                <input type="number" id="m1" placeholder="Minutos" min="0" style="width: 100%;">
+            </div>            
+        </div>
+
+        <div class="row mt-1">
+            <div class="col-6">
+                <input type="number" id="hr2" placeholder="Horas" min="0" style="width: 100%;">
+            </div>
+            <div class="col-6">
+                <input type="number" id="m2" placeholder="Minutos" min="0" style="width: 100%;">
+            </div>            
+        </div>
+
+        <div class="row mt-3">
+            <div>
+                <button onclick="soma()" type="button" class="btn btn-success">Somar</button>
+                <button onclick="subtracao()" type="button" class="btn btn-success">Subtrair</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="div"></div>
+        </div>
+        </div>
+    </div>
+    <script>
+
+        let inputHr1 = document.getElementById("hr1");
+        inputHr1.addEventListener("input", testarNumero);
+        
+        let inputHr2 = document.getElementById("hr2");
+        inputHr2.addEventListener("input", testarNumero);
+        
+        let inputM1 = document.getElementById("m1");
+        inputM1.addEventListener("input", testarNumero);
+        
+        let inputM2 = document.getElementById("m2");
+        inputM1.addEventListener("input", testarNumero);
+
+        function soma(){
+            let somaHoras
+            let somaMinutos
+            let h1 = Number(inputHr1.value);
+            let m1 = Number(inputM1.value);
+            let h2 = Number(inputHr2.value);
+            let m2 = Number(inputM2.value);
+
+            somaHoras = h1+h2
+            somaMinutos = m1+m2
+            
+            let i = 0
+
+            if(somaMinutos>=60){
+                while(somaMinutos>=60){
+                    somaMinutos = somaMinutos-60
+                    i++
+            }
+                somaHoras += i
+                somaMinutos = somaMinutos
+            }
+            document.getElementById("div").innerHTML = "<br>"+somaHoras+"H "+somaMinutos+"M"
+        }
+
+        function subtracao(){
+            let subtraiHoras
+            let subtraiMinutos
+            let h1 = Number(inputHr1.value);
+            let m1 = Number(inputM1.value);
+            let h2 = Number(inputHr2.value);
+            let m2 = Number(inputM2.value);
+
+            subtraiHoras = h1-h2
+            subtraiMinutos = m1-m2 
+
+            if(subtraiHoras < 0 || subtraiMinutos < 0){
+                return alert("O paunocu, coloca essa merda certo")
+            }else {    
+                let i=0
+                
+                if(subtraiMinutos>=60){
+                    while(subtraiMinutos>=60){
+                        subtraiminutos = subtraiminutos-60
+                        i++
+                }
+                subtraiHoras += i
+                subtraiMinutos = subtraiMinutos
+                }
+                document.getElementById("div").innerHTML = "<br>"+subtraiHoras+"H " + subtraiMinutos + "M"
+            }
+        }
+
+        function testarNumero(e){
+
+            if ( Number(e.target.value) <= 0) {
+                e.target.value = '';
+            }
+           
+        }
+    </script>
+</body>
+</html>
