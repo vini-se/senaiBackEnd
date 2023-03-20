@@ -72,3 +72,9 @@ body {
   font-size: 1.5rem;
   background-color: #222222;
 }
+
+.btn{
+  color: white;
+  margin: 10px 0;
+  width: 50%;
+}
