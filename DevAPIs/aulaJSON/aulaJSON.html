@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="aulaJSON.css">
+</head>
+<body>
+
+
+  <div id="title">
+    <h1>Insira o cep</h1>
+  </div>
+
+  <div class="form__group field">
+    <input type="number" class="form__field" placeholder="Cep" name="cep" id='cep' required  max="99999999"/>    
+    <label for="cep" class="form__label">CEP</label>  
+  </div>
+
+  <div class="form__group field">      
+    <input type="input" class="form__field" placeholder="Logradouro" name="rua" id='rua' required />
+    <label for="rua" class="form__label">Logradouro</label>
+  </div>
+
+  <div class="form__group field">
+    <input type="input" class="form__field" placeholder="Bairro" name="bairro" id='bairro' required />
+    <label for="bairro" class="form__label">Bairro</label>
+  </div>
+
+  <div class="form__group field">
+    <input type="input" class="form__field" placeholder="Cidade" name="cidade" id='cidade' required />
+    <label for="cidade" class="form__label">Cidade</label>
+  </div>
+
+  <div class="form__group field">
+    <input type="input" class="form__field" placeholder="Estado" name="estado" id='estado' required />
+    <label for="estado" class="form__label">Estado</label>
+  </div>
+
+  <div class="form__group field">
+    <input type="input" class="form__field" placeholder="País" name="pais" id='pais' required />
+    <label for="pais" class="form__label">País</label>
+  </div>
+
+  <button onclick="buscarEndereco()">Buscar Enderço</button>
+
+
+  <script src="aulaJSON.js"></script>
+
+</body>
+</html>
