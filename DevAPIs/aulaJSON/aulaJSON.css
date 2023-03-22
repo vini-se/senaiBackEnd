@@ -2,6 +2,20 @@
   color: white;
 }
 
+.wrongZipAddr:focus{
+  border-image: linear-gradient(to right, #f00 25%, #11998e 50%, #f00 75%) !important;
+  border-image-slice: 1 !important
+}
+
+.form__group.field .wrongZipAddr + .form__label{
+  color: red;
+}
+
+#span-wrong-zip-addr{
+  color: red;
+  opacity: 0;
+}
+
 .form__group {
   position: relative;
   padding: 15px 0 0;
@@ -19,7 +33,7 @@
   color: #fff;
   padding: 7px 0;
   background: transparent;
-  transition: border-color 0.2s;
+  transition: all 0.2s ease;
 }
 .form__field::placeholder {
   color: transparent;
@@ -77,4 +91,8 @@ body {
   color: white;
   margin: 10px 0;
   width: 50%;
+}
+
+*{
+  transition: .2s ease;
 }
