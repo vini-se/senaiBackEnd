@@ -1,5 +1,6 @@
-let zipAddr, correctZipAddr, spanWrongZipAddr, street, neighborhood, city, state, country, btnSubmit;
+let zipAddr, correctZipAddr, spanWrongZipAddr, street, neighborhood, city, state, country, btnSubmit, form;
 
+form = document.getElementById('form')
 spanWrongZipAddr = document.getElementById("span-wrong-zip-addr");
 btnSubmit = document.getElementById("btnSubmit");
 
@@ -25,7 +26,7 @@ zipAddr.addEventListener("keypress", (e) => {
 
 function zipAddrMask() {
   zipAddr.value = zipAddr.value.replace(/\D/g, ""); // remove all NaN chars from input value
-  zipAddr.value = zipAddr.value.replace(/^([\d]{5})([\d]{3})/, "$1-$2"); // adds the mask to the input
+  zipAddr.value = zipAddr.value.replace(/^([\d]{5})([\d]{3})/g, "$1-$2"); // adds the mask to the input
   
   // if the last digited char was the "-", remove it to allow the user to exclude using backspace
   if (zipAddr.value.slice(-1) === "-") {
@@ -40,8 +41,11 @@ function isValidBrZipAddr(zipAddr) {
 
 function testZipAddr(){
   correctZipAddr = zipAddr.value.replace('-','');
+  console.log(form)
   if (isValidBrZipAddr(correctZipAddr)){
     searchAddr(correctZipAddr);
+    zipAddr.setAttribute("disabled", "true")
+    btnSubmit.setAttribute("disabled", "true")
   } else {
     alert("Coloca o CEP correto porfavor!");
   }
@@ -84,4 +88,6 @@ function searchNewAddr(){
   country.value = "";
   street.value = "";
   zipAddr.focus();
+  zipAddr.removeAttribute("disabled");
+  btnSubmit.removeAttribute("disabled");
 }

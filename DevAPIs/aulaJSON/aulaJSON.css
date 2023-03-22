@@ -1,3 +1,7 @@
+form{
+  width: 50%;
+}
+
 #title {
   color: white;
 }
@@ -20,7 +24,7 @@
   position: relative;
   padding: 15px 0 0;
   margin: 15px 0;
-  width: 50%;
+  width: 100%;
 }
 
 .form__field {
@@ -90,7 +94,7 @@ body {
 .btn{
   color: white;
   margin: 10px 0;
-  width: 50%;
+  width: 100%;
 }
 
 *{
