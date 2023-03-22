@@ -2,16 +2,16 @@
   color: white;
 }
 
-.wrongZipAddr:focus{
+.wrongZipCode:focus{
   border-image: linear-gradient(to right, #f00 25%, #11998e 50%, #f00 75%) !important;
   border-image-slice: 1 !important
 }
 
-.form__group.field .wrongZipAddr + .form__label{
+.form__group.field .wrongZipCode + .form__label{
   color: red;
 }
 
-#span-wrong-zip-addr{
+#span-wrong-zip-code{
   color: red;
   opacity: 0;
 }
