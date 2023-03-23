@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta author="Vinicius">
+  <title>Buscar CEP</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <link rel="stylesheet" href="zipCode.css">
+</head>
+<body>
+
+  <div id="title">
+    <h1>Insira o CEP</h1>
+  </div>
+
+  <div class="form__group field">
+    <input type="text" class="form__field" placeholder="zipCode" name="zipCode" id='zipCode' required maxlength="9"/>    
+    <label for="zipCode" class="form__label"> CEP <span id="span-wrong-zip-code"> Inválido </span></label>
+  </div>
+
+  <div class="form__group field">      
+    <input type="input" class="form__field" placeholder="Logradouro" name="street" id='street' required />
+    <label for="street" class="form__label">Logradouro</label>
+  </div>
+
+  <div class="form__group field">
+    <input type="input" class="form__field" placeholder="Bairro" name="neighborhood" id='neighborhood' required />
+    <label for="neighborhood" class="form__label">Bairro</label>
+  </div>
+
+  <div class="form__group field">
+    <input type="input" class="form__field" placeholder="Cidade" name="city" id='city' required />
+    <label for="city" class="form__label">Cidade</label>
+  </div>
+
+  <div class="form__group field">
+    <input type="input" class="form__field" placeholder="Estado" name="state" id='state' required />
+    <label for="state" class="form__label">Estado</label>
+  </div>
+
+  <div class="form__group field">
+    <input type="input" class="form__field" placeholder="País" name="country" id='country' required />
+    <label for="country" class="form__label">País</label>
+  </div>
+
+  <button type="button" id="btnSubmit" class="btn btn-success" onclick="testZipCode()" disabled>Buscar Enderço</button>
+  <button type="button" class="btn btn-primary" onclick="searchNewAddr()">Buscar Novo Endereço</button>
+
+  <script src="zipCode.js"></script>
+
+</body>
+</html>

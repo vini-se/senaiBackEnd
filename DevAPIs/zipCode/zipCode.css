@@ -1,21 +1,17 @@
-form{
-  width: 50%;
-}
-
 #title {
   color: white;
 }
 
-.wrongZipAddr:focus{
+.wrongZipCode:focus{
   border-image: linear-gradient(to right, #f00 25%, #11998e 50%, #f00 75%) !important;
   border-image-slice: 1 !important
 }
 
-.form__group.field .wrongZipAddr + .form__label{
+.form__group.field .wrongZipCode + .form__label{
   color: red;
 }
 
-#span-wrong-zip-addr{
+#span-wrong-zip-code{
   color: red;
   opacity: 0;
 }
@@ -24,7 +20,7 @@ form{
   position: relative;
   padding: 15px 0 0;
   margin: 15px 0;
-  width: 100%;
+  width: 50%;
 }
 
 .form__field {
@@ -94,7 +90,7 @@ body {
 .btn{
   color: white;
   margin: 10px 0;
-  width: 100%;
+  width: 50%;
 }
 
 *{
