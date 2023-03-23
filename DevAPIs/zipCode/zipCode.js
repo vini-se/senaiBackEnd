@@ -1,9 +1,9 @@
-let zipCode, correctZipCode, spanWrongZipCode, street, neighborhood, city, state, country, btnSubmit;
+let zipCode, correctZipCode, spanWrongZipCode, btnSubmit;
 
 spanWrongZipCode = document.getElementById("span-wrong-zip-code");
 btnSubmit = document.getElementById("btnSubmit");
+zipCode = document.getElementById("cep");
 
-zipCode = document.getElementById("zipCode");
 zipCode.addEventListener("input", ()=>{
   zipCodeMask()  
   if (!isValidBrZipCode(zipCode.value)){
@@ -47,40 +47,26 @@ function testZipCode(){
   }
 }
 
-function setFields() {
-  zipCode = document.getElementById("zipCode");
-  street = document.getElementById("street");
-  neighborhood = document.getElementById("neighborhood");
-  city = document.getElementById("city");
-  state = document.getElementById("state");
-  country = document.getElementById("country");
-}
-
 function searchZipCode(correctZipCode){
-  setFields();
 
   let url = `https://viacep.com.br/ws/${correctZipCode}/json`;
   let path = new XMLHttpRequest();
   path.open("GET", url);
   path.onload = () => {
-      let response = JSON.parse(path.responseText);
-      
-      neighborhood.value = response.bairro;
-      city.value = response.localidade;
-      state.value = response.uf;
-      country.value = "Brasil";
-      street.value = response.logradouro;
+    let response = JSON.parse(path.responseText);
+
+    for (let i = 2; i <= 5; i++){    
+      form.children[i].children[0].value = response[form.children[i].children[0].id]
+    }
+    form.children[6].children[0].value = "Brasil";
+
   }
   path.send();  
 }
 
 function searchNewAddr(){
-  zipCode.value = "";
-  neighborhood.value = "";
-  zipCode.value = "";
-  city.value = "";
-  state.value = "";
-  country.value = "";
-  street.value = "";
+  for (let i = 1; i <= 6; i++){    
+    form.children[i].children[0].value = '';
+  }  
   zipCode.focus();
 }
