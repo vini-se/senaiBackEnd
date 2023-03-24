@@ -1,11 +1,25 @@
-let zipCode, correctZipCode, spanWrongZipCode, btnSubmit;
+let zipCode, correctZipCode, spanWrongZipCode, btnSubmit, form;
 
-spanWrongZipCode = document.getElementById("span-wrong-zip-code");
-btnSubmit = document.getElementById("btnSubmit");
-zipCode = document.getElementById("cep");
+function getElementById(element){
+  return document.getElementById(element)
+}
+
+spanWrongZipCode = getElementById("span-wrong-zip-code");
+btnSubmit = getElementById("btnSubmit");
+zipCode = getElementById("cep");
+form = getElementById("form");
+
+let formTop = [];
+
+function setNewFormObj(){
+  for (let i = 0; i < 6; i++) {
+    formTop[form.children[i].children[0].id] = form.children[i].children[0]
+    // formTop.push(form.children[i].children[0])
+  }
+}
 
 zipCode.addEventListener("input", ()=>{
-  zipCodeMask()  
+  zipCodeMask();
   if (!isValidBrZipCode(zipCode.value)){
     zipCode.classList.add("wrongZipCode")
     spanWrongZipCode.setAttribute("style", "opacity:1")
@@ -19,6 +33,7 @@ zipCode.addEventListener("input", ()=>{
 
 zipCode.addEventListener("keypress", (e) => {
   if (e.key === "Enter"){
+    setNewFormObj();
     testZipCode();
   }
 })
@@ -55,18 +70,16 @@ function searchZipCode(correctZipCode){
   path.onload = () => {
     let response = JSON.parse(path.responseText);
 
-    for (let i = 2; i <= 5; i++){    
-      form.children[i].children[0].value = response[form.children[i].children[0].id]
+    for (let i = 0; i <= 4; i++){    
+      formTop[i].value = response[formTop[i].id]
     }
-    form.children[6].children[0].value = "Brasil";
+    formTop[5].value = "Brasil";
 
   }
-  path.send();  
+  path.send();
 }
 
 function searchNewAddr(){
-  for (let i = 1; i <= 6; i++){    
-    form.children[i].children[0].value = '';
-  }  
+  form.reset(); 
   zipCode.focus();
 }

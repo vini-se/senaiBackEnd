@@ -12,10 +12,11 @@
 </head>
 <body>
 
+  <div id="title">
+    <h1>Insira o CEP</h1>
+  </div>
+
   <form id="form">
-    <div id="title">
-      <h1>Insira o CEP</h1>
-    </div>
 
     <div class="form__group field">
       <input type="text" class="form__field" placeholder="cep" name="cep" id='cep' required maxlength="9"/>    
@@ -47,7 +48,7 @@
       <label for="country" class="form__label">País</label>
     </div>
 
-    <button type="button" id="btnSubmit" class="btn btn-success" onclick="testZipCode()" disabled>Buscar Enderço</button>
+    <button type="button" id="btnSubmit" class="btn btn-success" onclick="testZipCode(); setNewFormObj()" disabled>Buscar Enderço</button>
     <button type="button" class="btn btn-primary" onclick="searchNewAddr()">Buscar Novo Endereço</button>
 
   </form>
