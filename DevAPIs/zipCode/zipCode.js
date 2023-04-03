@@ -6,15 +6,15 @@ function getElementById(element){
 
 spanWrongZipCode = getElementById("span-wrong-zip-code");
 btnSubmit = getElementById("btnSubmit");
-zipCode = getElementById("cep");
+zipCode = getElementById("code");
 form = getElementById("form");
 
-let formTop = [];
+let inputHtml = [];
 
 function setNewFormObj(){
   for (let i = 0; i < 6; i++) {
-    formTop[form.children[i].children[0].id] = form.children[i].children[0]
-    // formTop.push(form.children[i].children[0])
+    // (form.children[i].children[0]) são os inputs do/no html
+    inputHtml.push(form.children[i].children[0])
   }
 }
 
@@ -49,12 +49,12 @@ function zipCodeMask() {
 }
 
 function isValidBrZipCode(zipCode) {
-  let pattern = /^([\d]{5})([\d]{3})/;
-  return pattern.test(zipCode.replace('-',''));
+  let pattern = /^([\d]{5})(-)([\d]{3})/;
+  return pattern.test(zipCode);
 }
 
 function testZipCode(){
-  correctZipCode = zipCode.value.replace('-','');
+  correctZipCode = zipCode.value;
   if (isValidBrZipCode(correctZipCode)){
     searchZipCode(correctZipCode);
   } else {
@@ -64,19 +64,16 @@ function testZipCode(){
 
 function searchZipCode(correctZipCode){
 
-  let url = `https://viacep.com.br/ws/${correctZipCode}/json`;
-  let path = new XMLHttpRequest();
-  path.open("GET", url);
-  path.onload = () => {
-    let response = JSON.parse(path.responseText);
+  let url = `https://cdn.apicep.com/file/apicep/${correctZipCode}.json`;
 
+  fetch(url)
+  .then(res => res.json())
+  .then(data => {      
     for (let i = 0; i <= 4; i++){    
-      formTop[i].value = response[formTop[i].id]
+      inputHtml[i].value = data[inputHtml[i].id]
     }
-    formTop[5].value = "Brasil";
-
-  }
-  path.send();
+    inputHtml[5].value = "Brasil";
+  })
 }
 
 function searchNewAddr(){
