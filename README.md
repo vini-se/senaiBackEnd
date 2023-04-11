@@ -11,11 +11,11 @@
   #### Linguagens e ferramentas utilizadas:
   <p align="center">
     <a href="https://skillicons.dev">
-      <img src="https://skillicons.dev/icons?i=git" />
-      <img src="https://skillicons.dev/icons?i=sass" />
+      <img src="https://skillicons.dev/icons?i=html" />
       <img src="https://skillicons.dev/icons?i=css" />
       <img src="https://skillicons.dev/icons?i=js" />
-      <img src="https://skillicons.dev/icons?i=html" />
+      <img src="https://skillicons.dev/icons?i=sass" />
+      <img src="https://skillicons.dev/icons?i=git" />
       <img src="https://skillicons.dev/icons?i=visualstudio"/>
     </a>
   </p>
