@@ -9,9 +9,13 @@
   ### Branch destinada aos exercícios de Lógica de programação e atividades realizados no curso de programação backend no Senai/SC - São José
 
   #### Linguagens e ferramentas utilizadas:
-<code><img height="25" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png"></code>
-<p align="center">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=git, sass, css, js, html, visualstudio" />
-  </a>
-</p>
+  <p align="center">
+    <a href="https://skillicons.dev">
+      <img src="https://skillicons.dev/icons?i=git" />
+      <img src="https://skillicons.dev/icons?i=sass" />
+      <img src="https://skillicons.dev/icons?i=css" />
+      <img src="https://skillicons.dev/icons?i=js" />
+      <img src="https://skillicons.dev/icons?i=html" />
+      <img src="https://skillicons.dev/icons?i=visualstudio"/>
+    </a>
+  </p>
