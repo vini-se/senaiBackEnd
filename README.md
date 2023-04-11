@@ -14,7 +14,6 @@
       <img src="https://skillicons.dev/icons?i=js" />
       <img src="https://skillicons.dev/icons?i=nodejs" />
       <img src="https://skillicons.dev/icons?i=express" />
-      <img src="https://skillicons.dev/icons?i=sass" />
       <img src="https://skillicons.dev/icons?i=git" />
       <img src="https://skillicons.dev/icons?i=visualstudio"/>
     </a>
