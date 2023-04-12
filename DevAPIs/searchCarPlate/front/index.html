@@ -14,20 +14,29 @@
       <h1>Buscador de carros!</h1>
 
       <label for="placa">Digite a placa:</label>
-      <input type="text" id="placa" maxlength="9"/>
+      <input
+        type="text"
+        id="placa"
+        maxlength="9"
+        placeholder="AAA1A11"
+      />
 
       <label>Marca</label>
-      <input type="text" id="marca" disabled/>
+      <input type="text" id="marca" list="myList" onfocus="getMarcas()" />
+
+      <datalist id="myList">
+      </datalist>
 
       <label>Modelo</label>
-      <input type="text" id="modelo" disabled/>
+      <input type="text" id="modelo" disabled />
 
       <label>Ano do veículo</label>
-      <input type="text" id="ano" disabled/>
+      <input type="text" id="ano" disabled />
 
-      <button onclick="getCarro()"><b>Buscar Placa</b></button>
+      <button onclick="validarPlaca()"><b>Buscar Placa</b></button>
       <button onclick="limparCampos()"><b>Limpar</b></button>
     </div>
+    
     <script src="index.js"></script>
   </body>
 </html>
