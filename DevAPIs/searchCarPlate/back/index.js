@@ -1,5 +1,6 @@
 const express = require("express");
 const fs = require("fs");
+const cors = require("cors");
 
 const server = express();
 server.use(express.json());
@@ -16,21 +17,10 @@ fs.readFile("./carsPlate_DB.json", (err, data) => {
   carros = JSON.parse(data);
 });
 
-// Adiciona os HEADERS antes das rotas serem definidias
-server.use( (req, res, next) => {
-
-  // Rota do site que você deseja fazer as requisições
-  res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-
-  // Métodos de REQUEST que você deseja permitir
-  res.setHeader('Access-Control-Allow-Methods', 'GET');
-
-  // Métodos de HEADERS que você deseja permitir
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type');
-
-  // Passe para a próxima camada
-  next();
-})
+// Rota do site que você deseja fazer as requisições
+server.use(cors({
+  origin: 'http://127.0.0.1:5500'
+}));
 
 // Endpoint para MOSTRAR todos os carros
 server.get("/cars", (req, res) => {

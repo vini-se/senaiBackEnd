@@ -1,24 +1,8 @@
 let placaCampo = document.getElementById("placa");
 let ano, marca, modelo;
 
-// function getCarro() {
-//   const placa = placaCampo.value;
-
-//   const url = `../back/carsPlate_DB.json`;
-
-//   fetch(url)
-//     .then((res) => res.json())
-//     .then((data) => {
-//       const {cars} = data;
-
-//       const carroProcurado = cars.find(car => car.placa === placa);
-//       popularHtml(carroProcurado);
-//     });
-
-//   }
-
-function getCarro() {
-  const placa = placaCampo.value;
+function getCarro(placa) {
+  const placa = placaCampo.value.toUpperCase();
 
   const url = `http://localhost:3000/car/placa/${placa}`;
 
@@ -55,3 +39,4 @@ function setCampos() {
   modelo = document.getElementById("modelo");
   placa = document.getElementById("placa");
 }
+
