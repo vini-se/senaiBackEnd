@@ -5,7 +5,6 @@ const cors = require("cors");
 const server = express();
 server.use(express.json());
 
-
 // Lê o arquivo JSON
 fs.readFile("./carsPlate_DB.json", (err, data) => {
   if (err) {
@@ -29,11 +28,23 @@ server.get("/cars", (req, res) => {
 server.get("/car/placa/:id", (req, res) => {
   const placa = req.params.id; // Extrai o valor do param id para "placa"
 
-  const car = carros.cars.find( (carro) => carro.placa === placa ); // Procura pelo carro com a placa fornecida
+  const car = carros.cars.find((carro) => carro.placa === placa); // Procura pelo carro com a placa fornecida
 
-  const retorno = { data: car } // Estrutura do retorno
+  const retorno = { data: car }; // Estrutura do retorno
 
   return res.json(retorno);
+});
+
+// Endpoint para MOSTRAR todas as marcas dos carros
+server.get("/cars/brand", (req, res) => {
+  
+  const marcas = carros.cars.map((carro) => carro.marca);
+
+  const marcasSemRepetidos = Array.from(new Set(marcas));
+
+  const response = marcasSemRepetidos.sort().map(marca => ({ marca }))
+
+  return res.json( { carros: response });
 });
 
 server.listen(3000);
