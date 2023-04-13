@@ -48,16 +48,33 @@ function setCampos() {
   placa = document.getElementById("placa");
 }
 
-function getMarcas(){
+function getMarcasSelect() {
+  // endpoint para pegar no backend as marcas !!!//
+  const url = `http://localhost:3000/cars/brand`;
+  
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
 
-  // endpoint para pegar no backend as marcas !!!
-  var options = { option1: "Opção 1", option2: "Opção 2", option3: "Opção 3", option4: "Opcao do banco" };
-  
-  var datalist = document.getElementById("myList");
-  
-  for (var key in options) {
-    var option = document.createElement("option");
-    option.value = options[key];
-    datalist.appendChild(option);
-  }
+      const opcoes = data.carros.map( (car) => car.marca );
+
+      popularSelect(opcoes)
+
+    });
 }
+
+function popularSelect(opcoes){
+  
+  let marcasSelect = document.getElementById("marcasSelect");
+
+  // cria as opções e adiciona ao elemento select
+  for (let i = 0; i < opcoes.length; i++) {
+    let option = document.createElement("option"); 
+    option.text = opcoes[i];
+    option.value = i;
+    marcasSelect.appendChild(option);
+  }
+
+}
+
+getMarcasSelect()
