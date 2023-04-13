@@ -25,26 +25,37 @@ server.get("/cars", (req, res) => {
 });
 
 // Endpoint para MOSTRAR um carro
-server.get("/car/placa/:id", (req, res) => {
-  const placa = req.params.id; // Extrai o valor do param id para "placa"
+server.get("/car/placa/:placa", (req, res) => {
+  const { placa } = req.params; // Extrai o valor do param id para "placa"
 
   const car = carros.cars.find((carro) => carro.placa === placa); // Procura pelo carro com a placa fornecida
 
-  const retorno = { data: car }; // Estrutura do retorno
+  const retorno = { data: car };
+  console.log(retorno); // Estrutura do retorno
 
   return res.json(retorno);
 });
 
 // Endpoint para MOSTRAR todas as marcas dos carros
 server.get("/cars/brand", (req, res) => {
-  
   const marcas = carros.cars.map((carro) => carro.marca);
 
   const marcasSemRepetidos = Array.from(new Set(marcas));
 
-  const response = marcasSemRepetidos.sort().map(marca => ({ marca }))
+  const response = marcasSemRepetidos.sort().map((marca) => ({ marca }));
 
-  return res.json( { carros: response });
+  return res.json({ carros: response });
+});
+
+// Endpoint para MOSTRAR todos modelos das marcas dos carros
+server.get("/cars/brand/:brand", (req, res) => {
+  const { brand } = req.params;
+
+  const modelosCarro = carros.cars.filter((carro) => carro.marca === brand);
+
+  const response = modelosCarro.map((carro) => ({ modelo: carro.modelo}) )
+
+  return res.json( {modelos: response} );
 });
 
 server.listen(3000);
