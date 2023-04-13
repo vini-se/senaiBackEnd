@@ -7,6 +7,18 @@
       "ano": "2023"
     },
     {
+      "placa": "ABC1D23",
+      "marca": "Renault",
+      "modelo": "Kwid",
+      "ano": "2017"
+    },
+    {
+      "placa": "EFG4H56",
+      "marca": "Renault",
+      "modelo": "Sandero",
+      "ano": "2017"
+    },
+    {
       "placa": "BBB2C34",
       "marca": "Fiat",
       "modelo": "Uno",
