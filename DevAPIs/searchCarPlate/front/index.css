@@ -25,7 +25,7 @@
   font-size: 25px;
 }
 
-#div input {
+#div .field {
   border: 2px solid #ddd;
   border-radius: 10px;
   color: #3b3b3b;
@@ -37,8 +37,8 @@
   width: 500px;
 }
 
-#div input:focus,
-#div input:active {
+#div .field:focus,
+#div .field:active {
   border: 2px solid #502357;
   outline: none;
   transition: 0.3s;

@@ -4,39 +4,117 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" type="text/css" href="" media="screen" />
     <link rel="stylesheet" href="index.css" />
     <title>API paras placas!</title>
   </head>
 
   <body style="text-align: center">
-    <div id="div">
-      <h1>Buscador de carros!</h1>
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseOne"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+          >
+            Buscar pela placa!
+          </button>
+        </h2>
+        <div
+          id="collapseOne"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <div id="div">
+              <h1>Buscador de carros!</h1>
 
-      <label for="placa">Digite a placa:</label>
-      <input
-        type="text"
-        id="placa"
-        maxlength="9"
-        placeholder="AAA1A11"
-      />
+              <label for="placa">Digite a placa:</label>
+              <input
+                class="field"
+                type="text"
+                id="placa"
+                maxlength="9"
+                placeholder="AAA1A11"
+              />
 
-      <label>Marca</label>
-      <input type="text" id="marca" list="myList" onfocus="getMarcas()" />
+              <label>Marca</label>
+              <input class="field" type="text" id="marca" />
 
-      <datalist id="myList">
-      </datalist>
+              <label>Modelo</label>
+              <input class="field" type="text" id="modelo" disabled />
 
-      <label>Modelo</label>
-      <input type="text" id="modelo" disabled />
+              <label>Ano do veículo</label>
+              <input class="field" type="text" id="ano" disabled />
 
-      <label>Ano do veículo</label>
-      <input type="text" id="ano" disabled />
+              <button onclick="validarPlaca()"><b>Buscar Placa</b></button>
+              <button onclick="limparCampos()"><b>Limpar</b></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo"
+            aria-expanded="false"
+            aria-controls="collapseTwo"
+          >
+            Buscar por seleção!
+          </button>
+        </h2>
+        <div
+          id="collapseTwo"
+          class="accordion-collapse collapse show"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <div id="div">
+              <h1>Buscador de carros!</h1>
 
-      <button onclick="validarPlaca()"><b>Buscar Placa</b></button>
-      <button onclick="limparCampos()"><b>Limpar</b></button>
+              <h4 class="mb-4">
+                Selecione a marca, o modelo e o ano para exibir uma lista de
+                veículos!
+              </h4>
+
+              <select class="field" name="marcasSelect" id="marcasSelect">
+                <option value="">Selecione uma Marca!</option>
+              </select>
+
+              <select class="field" name="modelosSelect" id="modelosSelect">
+                <option value="">Selecione um Modelo!</option>
+              </select>
+
+              <select class="field" name="anosSelect" id="anosSelect">
+                <option value="">Selecione um Ano!</option>
+              </select>
+
+              <button><b>Buscar Veículos</b></button>
+              <button><b>Limpar</b></button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
     <script src="index.js"></script>
   </body>
 </html>
