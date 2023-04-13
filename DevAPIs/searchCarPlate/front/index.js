@@ -51,30 +51,52 @@ function setCampos() {
 function getMarcasSelect() {
   // endpoint para pegar no backend as marcas !!!//
   const url = `http://localhost:3000/cars/brand`;
-  
+
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
+      const opcoes = data.carros.map((car) => car.marca);
 
-      const opcoes = data.carros.map( (car) => car.marca );
-
-      popularSelect(opcoes)
-
+      popularSelect(opcoes);
     });
 }
 
-function popularSelect(opcoes){
-  
+function getModelosSelect() {
+  const marca = marcasSelect.options[marcasSelect.selectedIndex].innerHTML;
+  // endpoint para pegar no backend as marcas !!!//
+  const url = `http://localhost:3000/cars/brand/${marca}`;
+
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      const opcoes = data.modelos;
+
+      popularSelectModelos(opcoes);
+    });
+}
+
+function popularSelect(opcoes) {
   let marcasSelect = document.getElementById("marcasSelect");
 
   // cria as opções e adiciona ao elemento select
   for (let i = 0; i < opcoes.length; i++) {
-    let option = document.createElement("option"); 
+    let option = document.createElement("option");
     option.text = opcoes[i];
     option.value = i;
     marcasSelect.appendChild(option);
   }
-
 }
 
-getMarcasSelect()
+function popularSelectModelos(opcoes) {
+  let modelosSelect = document.getElementById("modelosSelect");
+
+  // cria as opções e adiciona ao elemento select
+  for (let i = 0; i < opcoes.length; i++) {
+    let option = document.createElement("option");
+    option.text = opcoes[i].modelo;
+    option.value = i;
+    modelosSelect.appendChild(option);
+  }
+}
+
+getMarcasSelect();

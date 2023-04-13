@@ -49,7 +49,7 @@
               />
 
               <label>Marca</label>
-              <input class="field" type="text" id="marca" />
+              <input class="field" type="text" id="marca" disabled/>
 
               <label>Modelo</label>
               <input class="field" type="text" id="modelo" disabled />
@@ -90,7 +90,7 @@
                 veículos!
               </h4>
 
-              <select class="field" name="marcasSelect" id="marcasSelect">
+              <select class="field" name="marcasSelect" id="marcasSelect" onchange="getModelosSelect()">
                 <option value="">Selecione uma Marca!</option>
               </select>
 
