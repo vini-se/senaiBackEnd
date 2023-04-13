@@ -89,6 +89,9 @@ function popularSelect(opcoes) {
 
 function popularSelectModelos(opcoes) {
   let modelosSelect = document.getElementById("modelosSelect");
+  while (modelosSelect.firstChild) {
+    modelosSelect.removeChild(modelosSelect.firstChild);
+  }
 
   // cria as opções e adiciona ao elemento select
   for (let i = 0; i < opcoes.length; i++) {
