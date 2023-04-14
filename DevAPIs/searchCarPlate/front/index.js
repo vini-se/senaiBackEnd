@@ -75,6 +75,25 @@ function getModelosSelect() {
     });
 }
 
+
+function getAnosSelect(){
+
+  const modelo = modelosSelect.options[modelosSelect.selectedIndex].innerHTML;
+  // endpoint para pegar no backend as modelos !!!//
+  const url = `http://localhost:3000/cars/model/${modelo}`;
+
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+
+      const opcoes = data.anos;
+      
+      popularSelectAnos(opcoes);
+    });
+
+}
+
+
 function popularSelect(opcoes) {
   let marcasSelect = document.getElementById("marcasSelect");
 
@@ -89,6 +108,8 @@ function popularSelect(opcoes) {
 
 function popularSelectModelos(opcoes) {
   let modelosSelect = document.getElementById("modelosSelect");
+
+  // Deleta os elementos do select
   while (modelosSelect.firstChild) {
     modelosSelect.removeChild(modelosSelect.firstChild);
   }
@@ -101,5 +122,24 @@ function popularSelectModelos(opcoes) {
     modelosSelect.appendChild(option);
   }
 }
+
+function popularSelectAnos(opcoes) {
+  let anosSelect = document.getElementById("anosSelect");
+
+  // Deleta os elementos do select
+  while (anosSelect.firstChild) {
+    anosSelect.removeChild(anosSelect.firstChild);
+  }
+
+  // cria as opções e adiciona ao elemento select
+  for (let i = 0; i < opcoes.length; i++) {
+    let option = document.createElement("option");
+    option.text = opcoes[i].ano;
+    option.value = i;
+    anosSelect.appendChild(option);
+  }
+}
+
+
 
 getMarcasSelect();
