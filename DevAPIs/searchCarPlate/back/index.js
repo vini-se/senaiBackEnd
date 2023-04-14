@@ -5,6 +5,8 @@ const cors = require("cors");
 const server = express();
 server.use(express.json());
 
+var carroFiltrado, carroFiltrado2, carroFiltrado3;
+
 // Lê o arquivo JSON
 fs.readFile("./carsPlate_DB.json", (err, data) => {
   if (err) {
@@ -37,11 +39,11 @@ server.get("/car/placa/:placa", (req, res) => {
 
 // Endpoint para MOSTRAR todas as marcas dos carros
 server.get("/cars/brand", (req, res) => {
-  const marcas = carros.cars.map((carro) => carro.marca);
+  const marcas = carros.cars.map(( carro ) => carro.marca );
 
-  const marcasSemRepetidos = Array.from(new Set(marcas));
+  const marcasSemRepetidos = Array.from(new Set( marcas ) );
 
-  const response = marcasSemRepetidos.sort().map((marca) => ({ marca }));
+  const response = marcasSemRepetidos.sort().map(( marca ) => ({ marca }));
 
   return res.json({ carros: response });
 });
@@ -50,11 +52,11 @@ server.get("/cars/brand", (req, res) => {
 server.get("/cars/brand/:brand", (req, res) => {
   const { brand } = req.params;
 
-  const modelosCarro = carros.cars.filter((carro) => carro.marca === brand);
+  carroFiltrado1 = carros.cars.filter(( carro ) => carro.marca === brand);
 
-  const modelosSemRepetidos = Array.from(new Set(modelosCarro.map((carro) => carro.modelo)))
+  const modelosSemRepetidos = Array.from(new Set(carroFiltrado1.map(( carro ) => carro.modelo )))
 
-  const response = modelosSemRepetidos.sort().map((modelo) => ({ modelo: modelo}) );
+  const response = modelosSemRepetidos.sort().map(( modelo ) => ({ modelo }) );
 
   return res.json( {modelos: response} );
 });
@@ -62,10 +64,12 @@ server.get("/cars/brand/:brand", (req, res) => {
 // Endpoint para MOSTRAR todos os anos dos modelos das marcas dos carros
 server.get("/cars/model/:model", (req, res) => {
   const { model } = req.params;
+  
+  carroFiltrado2 = carroFiltrado1.filter((carro) => carro.modelo === model)
 
-  const anosCarro = carros.cars.filter((carro) => carro.modelo === model);
+  const anosSemRepetidos = Array.from(new Set(carroFiltrado2.map(( carro ) => carro.ano )))
 
-  const response = anosCarro.map((carro) => ({ ano: carro.ano}) );
+  const response = anosSemRepetidos.sort().map(( ano ) => ano = { ano: ano })
 
   return res.json( { anos: response } )
 });
