@@ -43,6 +43,18 @@
       "ano": "2023"
     },
     {
+      "placa": "EFG5H67",
+      "marca": "GM - Chevrolet",
+      "modelo": "Cruze",
+      "ano": "2013"
+    },
+    {
+      "placa": "EFG5H68",
+      "marca": "GM - Chevrolet",
+      "modelo": "Cruze",
+      "ano": "2018"
+    },
+    {
       "placa": "FFF6G78",
       "marca": "Nissan",
       "modelo": "Versa",
@@ -67,10 +79,16 @@
       "ano": "2023"
     },
     {
-      "placa": "JJJ9K99",
-      "marca": "Honda",
-      "modelo": "Civic",
-      "ano": "2025"
+      "placa": "IHJ9K99",
+      "marca": "Porsche",
+      "modelo": "Cayenne",
+      "ano": "2022"
+    },
+    {
+      "placa": "YZP2A45",
+      "marca": "Chinesa",
+      "modelo": "Xing-Ling",
+      "ano": "2005"
     },
     {
       "placa": "KKK9L99",
