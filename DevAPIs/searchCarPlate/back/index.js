@@ -30,8 +30,7 @@ server.get("/car/placa/:placa", (req, res) => {
 
   const car = carros.cars.find((carro) => carro.placa === placa); // Procura pelo carro com a placa fornecida
 
-  const retorno = { data: car };
-  console.log(retorno); // Estrutura do retorno
+  const retorno = { data: car }; // Estrutura do retorno
 
   return res.json(retorno);
 });
@@ -47,15 +46,28 @@ server.get("/cars/brand", (req, res) => {
   return res.json({ carros: response });
 });
 
-// Endpoint para MOSTRAR todos modelos das marcas dos carros
+// Endpoint para MOSTRAR todos modelos a partir das marcas
 server.get("/cars/brand/:brand", (req, res) => {
   const { brand } = req.params;
 
   const modelosCarro = carros.cars.filter((carro) => carro.marca === brand);
 
-  const response = modelosCarro.map((carro) => ({ modelo: carro.modelo}) )
+  const modelosSemRepetidos = Array.from(new Set(modelosCarro.map((carro) => carro.modelo)))
+
+  const response = modelosSemRepetidos.sort().map((modelo) => ({ modelo: modelo}) );
 
   return res.json( {modelos: response} );
+});
+
+// Endpoint para MOSTRAR todos os anos dos modelos das marcas dos carros
+server.get("/cars/model/:model", (req, res) => {
+  const { model } = req.params;
+
+  const anosCarro = carros.cars.filter((carro) => carro.modelo === model);
+
+  const response = anosCarro.map((carro) => ({ ano: carro.ano}) );
+
+  return res.json( { anos: response } )
 });
 
 server.listen(3000);
