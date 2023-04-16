@@ -75,9 +75,7 @@ function getModelosSelect() {
     });
 }
 
-
-function getAnosSelect(){
-
+function getAnosSelect() {
   const modelo = modelosSelect.options[modelosSelect.selectedIndex].innerHTML;
   // endpoint para pegar no backend as modelos !!!//
   const url = `http://localhost:3000/cars/model/${modelo}`;
@@ -85,14 +83,33 @@ function getAnosSelect(){
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
-
       const opcoes = data.anos;
-      
+
       popularSelectAnos(opcoes);
     });
-
 }
 
+function sendApiAnos() {
+  const ano = anosSelect.options[anosSelect.selectedIndex].innerHTML;
+
+  const url = `http://localhost:3000/cars/final/${ano}`;
+
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Success:");
+    });
+}
+
+function getVeiculos() {
+  const url = `http://localhost:3000/cars/result`;
+
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+}
 
 function popularSelect(opcoes) {
   let marcasSelect = document.getElementById("marcasSelect");
@@ -114,10 +131,20 @@ function popularSelectModelos(opcoes) {
     modelosSelect.removeChild(modelosSelect.firstChild);
   }
 
-  // cria as opções e adiciona ao elemento select
-  for (let i = 0; i < opcoes.length; i++) {
+  let executouComando = false;
+
+  // cria as opções começa no -1 para no final dar certo :) e adiciona ao elemento select
+  for (let i = -1; i < opcoes.length; i++) {
     let option = document.createElement("option");
-    option.text = opcoes[i].modelo;
+
+    // Executa apenas uma vez
+    if (!executouComando) {
+      option.text = "Selecione um Modelo!";
+      executouComando = true;
+    } else {
+      option.text = opcoes[i].modelo;
+    }
+
     option.value = i;
     modelosSelect.appendChild(option);
   }
@@ -131,15 +158,24 @@ function popularSelectAnos(opcoes) {
     anosSelect.removeChild(anosSelect.firstChild);
   }
 
-  // cria as opções e adiciona ao elemento select
-  for (let i = 0; i < opcoes.length; i++) {
+  // Flag para popular o primeiro Elemento
+  let executouComando = false;
+
+  // cria as opções começa no -1 para no final dar certo :) e adiciona ao elemento select
+  for (let i = -1; i < opcoes.length; i++) {
     let option = document.createElement("option");
-    option.text = opcoes[i].ano;
+
+    // Executa apenas uma vez
+    if (!executouComando) {
+      option.text = "Selecione um Ano!";
+      executouComando = true;
+    } else {
+      option.text = opcoes[i].ano;
+    }
+
     option.value = i;
     anosSelect.appendChild(option);
   }
 }
-
-
 
 getMarcasSelect();
