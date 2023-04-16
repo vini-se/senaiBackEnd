@@ -25,6 +25,18 @@
       "ano": "2020"
     },
     {
+      "placa": "BHX2G63",
+      "marca": "Fiat",
+      "modelo": "Uno",
+      "ano": "2020"
+    },
+    {
+      "placa": "BDB2C45",
+      "marca": "Fiat",
+      "modelo": "Uno",
+      "ano": "2021"
+    },
+    {
       "placa": "CCC3D45",
       "marca": "Fiat",
       "modelo": "Mobi",
@@ -50,6 +62,12 @@
     },
     {
       "placa": "EFG5H68",
+      "marca": "GM - Chevrolet",
+      "modelo": "Cruze",
+      "ano": "2018"
+    },
+    {
+      "placa": "EXS45G4",
       "marca": "GM - Chevrolet",
       "modelo": "Cruze",
       "ano": "2018"
@@ -86,6 +104,12 @@
     },
     {
       "placa": "YZP2A45",
+      "marca": "Chinesa",
+      "modelo": "Xing-Ling",
+      "ano": "2005"
+    },
+    {
+      "placa": "ACD1C23",
       "marca": "Chinesa",
       "modelo": "Xing-Ling",
       "ano": "2005"
