@@ -5,7 +5,7 @@ const cors = require("cors");
 const server = express();
 server.use(express.json());
 
-var carroFiltrado, carroFiltrado2, carroFiltrado3;
+var carroFiltrado1, carroFiltrado2, brand, model, ano;
 
 // Lê o arquivo JSON
 fs.readFile("./carsPlate_DB.json", (err, data) => {
@@ -50,7 +50,7 @@ server.get("/cars/brand", (req, res) => {
 
 // Endpoint para MOSTRAR todos modelos a partir das marcas
 server.get("/cars/brand/:brand", (req, res) => {
-  const { brand } = req.params;
+  brand = req.params.brand;
 
   carroFiltrado1 = carros.cars.filter(( carro ) => carro.marca === brand);
 
@@ -63,7 +63,7 @@ server.get("/cars/brand/:brand", (req, res) => {
 
 // Endpoint para MOSTRAR todos os anos dos modelos das marcas dos carros
 server.get("/cars/model/:model", (req, res) => {
-  const { model } = req.params;
+  model = req.params.model;
   
   carroFiltrado2 = carroFiltrado1.filter((carro) => carro.modelo === model)
 
@@ -72,6 +72,24 @@ server.get("/cars/model/:model", (req, res) => {
   const response = anosSemRepetidos.sort().map(( ano ) => ano = { ano: ano })
 
   return res.json( { anos: response } )
+});
+
+// Endpoint para MOSTRAR todos os anos dos modelos das marcas dos carros
+server.get("/cars/final/:ano", (req, res) => {
+  ano = req.params.ano;
+
+  return res.json( {} )
+});
+
+server.get('/cars/result', (req, res) => {
+
+  const carrosFiltrado = carroFiltrado2.filter((carro) => carro.ano == ano && carro.marca == brand && carro.modelo == model);
+  ano = null;
+  brand = null;
+  model = null;
+  
+  const response = carrosFiltrado
+  return res.json( { carrosFiltrados: response})
 });
 
 server.listen(3000);
