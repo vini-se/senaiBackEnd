@@ -1,4 +1,7 @@
 let placaCampo = document.getElementById("placa");
+let marcasSelect = document.getElementById("marcasSelect");
+let modelosSelect = document.getElementById("modelosSelect");
+let anosSelect = document.getElementById("anosSelect");
 let ano, marca, modelo;
 
 function validarPlaca() {
@@ -62,7 +65,7 @@ function getMarcasSelect() {
 }
 
 function getModelosSelect() {
-  const marca = marcasSelect.options[marcasSelect.selectedIndex].innerHTML;
+  const marca = marcasSelect.options[marcasSelect.selectedIndex].innerText;
   // endpoint para pegar no backend as marcas !!!//
   const url = `http://localhost:3000/cars/brand/${marca}`;
 
@@ -76,7 +79,7 @@ function getModelosSelect() {
 }
 
 function getAnosSelect() {
-  const modelo = modelosSelect.options[modelosSelect.selectedIndex].innerHTML;
+  const modelo = modelosSelect.options[modelosSelect.selectedIndex].innerText;
   // endpoint para pegar no backend as modelos !!!//
   const url = `http://localhost:3000/cars/model/${modelo}`;
 
@@ -90,15 +93,13 @@ function getAnosSelect() {
 }
 
 function sendApiAnos() {
-  const ano = anosSelect.options[anosSelect.selectedIndex].innerHTML;
+  const ano = anosSelect.options[anosSelect.selectedIndex].innerText;
 
   const url = `http://localhost:3000/cars/final/${ano}`;
 
   fetch(url)
     .then((res) => res.json())
-    .then((data) => {
-      console.log("Success:");
-    });
+    .then((data) => {});
 }
 
 function getVeiculos() {
@@ -107,13 +108,30 @@ function getVeiculos() {
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      carros = data.carrosFiltrados;
+      popularLista(carros);
     });
+
+  anosSelect.setAttribute("disabled", "true");
+  marcasSelect.setAttribute("disabled", "true");
+  modelosSelect.setAttribute("disabled", "true");
+}
+
+function resetBusca() {
+  const reset = [];
+
+  marcasSelect.selectedIndex = 0;
+  popularSelectModelos(reset);
+  popularSelectAnos(reset);
+
+  table.setAttribute("style", "display: none");
+
+  anosSelect.removeAttribute("disabled");
+  marcasSelect.removeAttribute("disabled");
+  modelosSelect.removeAttribute("disabled");
 }
 
 function popularSelect(opcoes) {
-  let marcasSelect = document.getElementById("marcasSelect");
-
   // cria as opções e adiciona ao elemento select
   for (let i = 0; i < opcoes.length; i++) {
     let option = document.createElement("option");
@@ -124,58 +142,73 @@ function popularSelect(opcoes) {
 }
 
 function popularSelectModelos(opcoes) {
-  let modelosSelect = document.getElementById("modelosSelect");
-
   // Deleta os elementos do select
   while (modelosSelect.firstChild) {
     modelosSelect.removeChild(modelosSelect.firstChild);
   }
 
-  let executouComando = false;
+  let option = document.createElement("option");
+  option.text = "Selecione um Modelo!";
+  option.value = "";
+  modelosSelect.appendChild(option);
 
-  // cria as opções começa no -1 para no final dar certo :) e adiciona ao elemento select
-  for (let i = -1; i < opcoes.length; i++) {
-    let option = document.createElement("option");
-
-    // Executa apenas uma vez
-    if (!executouComando) {
-      option.text = "Selecione um Modelo!";
-      executouComando = true;
-    } else {
-      option.text = opcoes[i].modelo;
-    }
-
+  for (let i = 0; i < opcoes.length; i++) {
+    const option = document.createElement("option");
+    option.text = opcoes[i].modelo;
     option.value = i;
     modelosSelect.appendChild(option);
   }
 }
 
 function popularSelectAnos(opcoes) {
-  let anosSelect = document.getElementById("anosSelect");
-
   // Deleta os elementos do select
   while (anosSelect.firstChild) {
     anosSelect.removeChild(anosSelect.firstChild);
   }
 
-  // Flag para popular o primeiro Elemento
-  let executouComando = false;
+  let option = document.createElement("option");
+  option.text = "Selecione um Ano!";
+  option.value = '';
+  anosSelect.appendChild(option);
 
-  // cria as opções começa no -1 para no final dar certo :) e adiciona ao elemento select
-  for (let i = -1; i < opcoes.length; i++) {
+  for (let i = 0; i < opcoes.length; i++) {
     let option = document.createElement("option");
-
-    // Executa apenas uma vez
-    if (!executouComando) {
-      option.text = "Selecione um Ano!";
-      executouComando = true;
-    } else {
-      option.text = opcoes[i].ano;
-    }
-
+    option.text = opcoes[i].ano;
     option.value = i;
     anosSelect.appendChild(option);
   }
+  
+}
+
+function popularLista(carros) {
+  const table = document.getElementById("table");
+  table.removeAttribute("style");
+
+  const tBody = table.children[1];
+  tBody.innerText = "";
+
+  for (let i = 0; i < carros.length; i++) {
+    const carro = carros[i];
+
+    const tr = tBody.insertRow();
+
+    const td_id = tr.insertCell();
+    const td_marca = tr.insertCell();
+    const td_modelo = tr.insertCell();
+    const td_ano = tr.insertCell();
+    const td_placa = tr.insertCell();
+
+    td_id.innerText = i + 1;
+    td_marca.innerText = carro.marca;
+    td_modelo.innerText = carro.modelo;
+    td_ano.innerText = carro.ano;
+    td_placa.innerText = carro.placa;
+  }
+
+  // Rola a página até a table gerada.
+  const scrollTopPos = table.offsetTop;
+  document.documentElement.scrollTop = scrollTopPos;
+  document.body.scrollTop = scrollTopPos;
 }
 
 getMarcasSelect();

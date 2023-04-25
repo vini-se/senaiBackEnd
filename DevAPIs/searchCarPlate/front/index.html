@@ -90,7 +90,7 @@
                 veículos!
               </h4>
 
-              <select class="field" name="marcasSelect" id="marcasSelect" onchange="getModelosSelect()">
+              <select class="field mt-3" name="marcasSelect" id="marcasSelect" onchange="getModelosSelect()">
                 <option value="">Selecione uma Marca!</option>
               </select>
 
@@ -103,11 +103,26 @@
               </select>
 
               <button onclick="getVeiculos()"><b>Buscar Veículos</b></button>
-              <button><b>Limpar</b></button>
+              <button onclick="resetBusca()"><b>Limpar</b></button>
             </div>
           </div>
         </div>
       </div>
+
+      <table id="table" class="table table-striped" style="display: none;">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Ano</th>
+            <th scope="col">Placa</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
     </div>
 
     <script
