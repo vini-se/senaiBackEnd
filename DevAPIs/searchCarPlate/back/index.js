@@ -83,6 +83,7 @@ server.get("/cars/final/:ano", (req, res) => {
   return res.json( {} )
 });
 
+// Endpoint para Enviar os carros filtrados
 server.get('/cars/result', (req, res) => {
 
   const response = carroFiltrado1
@@ -91,8 +92,25 @@ server.get('/cars/result', (req, res) => {
   brand = null;
   model = null;  
   carroFiltrado1 = null
-  
+
   return res.json({ carrosFiltrados: response })
 });
+
+server.get('/cars/result/v2', (req, res) => {
+
+  const {filter} = req.body;
+
+  let carrosFiltradosV2 = carros.cars.filter(( carro ) => carro.marca === filter.marca )
+
+  if(filter.model){
+    carrosFiltradosV2 = carrosFiltradosV2.filter(( carro ) => carro.modelo === filter.modelo ) 
+  }
+  if(filter.ano){
+    carrosFiltradosV2 = carrosFiltradosV2.filter(( carro ) => carro.ano === filter.ano)    
+  }
+
+  return res.json( carrosFiltradosV2 )
+  
+})
 
 server.listen(3000);
