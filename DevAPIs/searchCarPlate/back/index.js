@@ -26,17 +26,6 @@ server.get("/cars", (req, res) => {
   return res.json(carros);
 });
 
-// Endpoint para MOSTRAR um carro
-server.get("/car/placa/:placa", (req, res) => {
-  const { placa } = req.params; // Extrai o valor do param id para "placa"
-
-  const car = carros.cars.find((carro) => carro.placa === placa); // Procura pelo carro com a placa fornecida
-
-  const retorno = { data: car }; // Estrutura do retorno
-
-  return res.json(retorno);
-});
-
 // Endpoint para MOSTRAR todas as marcas dos carros
 server.get("/cars/brand", (req, res) => {
   const marcas = carros.cars.map(( carro ) => carro.marca );
@@ -48,54 +37,22 @@ server.get("/cars/brand", (req, res) => {
   return res.json({ carros: response });
 });
 
-// Endpoint para MOSTRAR todos modelos a partir das marcas
-server.get("/cars/brand/:brand", (req, res) => {
-  brand = req.params.brand;
+// Endpoint para mostrar todos os valores com base no que vc precisa "need"
+server.get('/cars/search', (req, res) => {
 
-  // carroFiltrado = carros.cars.filter(( carro ) => carro.marca === brand);
-  carroFiltrado1 = carros.cars.filter(( carro ) => carro.marca === brand );
+  const {filter} = req.body;
+  const {need} = req.body;
 
-  const modelosSemRepetidos = Array.from(new Set(carroFiltrado1.map(( carro ) => carro.modelo )))
+  const carrosFiltrados = filterObjectFilter(filter);
 
-  const response = modelosSemRepetidos.sort().map(( modelo ) => ({ modelo }) );
+  const filterItem = Object.keys(need)[0];
+  
+  const valorCarrosSemRepetidos = Array.from(new Set(carrosFiltrados.map(( carro ) => carro[filterItem] )));
+  
+  return res.json( valorCarrosSemRepetidos )
+})
 
-  return res.json( {modelos: response} );
-});
-
-// Endpoint para MOSTRAR todos os anos dos modelos das marcas dos carros
-server.get("/cars/model/:model", (req, res) => {
-  const {model} = req.params;
-
-  carroFiltrado1 = carroFiltrado1.filter((carro) => carro.modelo === model)
-
-  const anosSemRepetidos = Array.from(new Set(carroFiltrado1.map(( carro ) => carro.ano )))
-
-  const response = anosSemRepetidos.sort().map(( ano ) => ano = { ano: ano })
-
-  return res.json( { anos: response } )
-});
-
-// Endpoint para MOSTRAR todos os anos dos modelos das marcas dos carros
-server.get("/cars/final/:ano", (req, res) => {
-  const { ano } = req.params;
-
-  carroFiltrado1 = carroFiltrado1.filter((carro) => carro.ano === ano)
-  return res.json( {} )
-});
-
-// Endpoint para Enviar os carros filtrados
-server.get('/cars/result', (req, res) => {
-
-  const response = carroFiltrado1
-
-  ano = null;
-  brand = null;
-  model = null;  
-  // carroFiltrado1 = null
-
-  return res.json({ carrosFiltrados: response })
-});
-
+// Endpoint para mostrar todos os carros com base no filtro
 server.get('/cars/result/v2', (req, res) => {
 
   const {filter} = req.body;
