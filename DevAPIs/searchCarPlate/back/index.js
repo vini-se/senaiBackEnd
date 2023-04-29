@@ -26,19 +26,8 @@ server.get("/cars", (req, res) => {
   return res.json(carros);
 });
 
-// Endpoint para MOSTRAR todas as marcas dos carros
-server.get("/cars/brand", (req, res) => {
-  const marcas = carros.cars.map(( carro ) => carro.marca );
-
-  const marcasSemRepetidos = Array.from(new Set( marcas ) );
-
-  const response = marcasSemRepetidos.sort().map(( marca ) => ({ marca }));
-
-  return res.json({ carros: response });
-});
-
 // Endpoint para mostrar todos os valores com base no que vc precisa "need"
-server.get('/cars/search', (req, res) => {
+server.post('/cars/search', (req, res) => {
 
   const {filter} = req.body;
   const {need} = req.body;
@@ -49,17 +38,19 @@ server.get('/cars/search', (req, res) => {
   
   const valorCarrosSemRepetidos = Array.from(new Set(carrosFiltrados.map(( carro ) => carro[filterItem] )));
   
-  return res.json( valorCarrosSemRepetidos )
+  const response = valorCarrosSemRepetidos.sort();
+  
+  return res.json( {"result": response} )
 })
 
 // Endpoint para mostrar todos os carros com base no filtro
-server.get('/cars/result/v2', (req, res) => {
+server.post('/cars/result/v2', (req, res) => {
 
   const {filter} = req.body;
 
   const carrosFiltradosV2 = filterObjectFilter(filter)
 
-  return res.json( carrosFiltradosV2 )
+  return res.json( {"result": carrosFiltradosV2} )
   
 })
 
