@@ -17,15 +17,27 @@ function validarPlaca() {
 }
 
 function getCarro(placa) {
-  const url = `http://localhost:3000/car/placa/${placa}`;
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      filter: {
+        placa: placa
+      }
+    })
+  };
 
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
-      const carro = data.data;
-
-      popularHtml(carro);
-    });
+  const url = `http://localhost:3000/cars/result/v2`;
+  
+  fetch(url, options)
+  .then((res) => res.json())
+  .then((data) => {
+    const carro = data.result[0];
+    
+    popularHtml(carro);
+  });
 }
 
 function popularHtml(carro) {
@@ -112,9 +124,9 @@ function getVeiculos() {
       popularLista(carros);
     });
 
-  anosSelect.setAttribute("disabled", "true");
-  marcasSelect.setAttribute("disabled", "true");
-  modelosSelect.setAttribute("disabled", "true");
+  // anosSelect.setAttribute("disabled", "true");
+  // marcasSelect.setAttribute("disabled", "true");
+  // modelosSelect.setAttribute("disabled", "true");
 }
 
 function resetBusca() {
@@ -126,9 +138,9 @@ function resetBusca() {
 
   table.setAttribute("style", "display: none");
 
-  anosSelect.removeAttribute("disabled");
-  marcasSelect.removeAttribute("disabled");
-  modelosSelect.removeAttribute("disabled");
+  // anosSelect.removeAttribute("disabled");
+  // marcasSelect.removeAttribute("disabled");
+  // modelosSelect.removeAttribute("disabled");
 }
 
 function popularSelect(opcoes) {
@@ -168,7 +180,7 @@ function popularSelectAnos(opcoes) {
 
   let option = document.createElement("option");
   option.text = "Selecione um Ano!";
-  option.value = '';
+  option.value = "";
   anosSelect.appendChild(option);
 
   for (let i = 0; i < opcoes.length; i++) {
@@ -177,7 +189,6 @@ function popularSelectAnos(opcoes) {
     option.value = i;
     anosSelect.appendChild(option);
   }
-  
 }
 
 function popularLista(carros) {
@@ -211,4 +222,4 @@ function popularLista(carros) {
   document.body.scrollTop = scrollTopPos;
 }
 
-getMarcasSelect();
+// getMarcasSelect();
