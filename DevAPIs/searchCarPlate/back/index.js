@@ -77,7 +77,7 @@ server.get("/cars/model/:model", (req, res) => {
 
 // Endpoint para MOSTRAR todos os anos dos modelos das marcas dos carros
 server.get("/cars/final/:ano", (req, res) => {
-  ano = req.params.ano;
+  const { ano } = req.params;
 
   carroFiltrado1 = carroFiltrado1.filter((carro) => carro.ano === ano)
   return res.json( {} )
@@ -91,7 +91,7 @@ server.get('/cars/result', (req, res) => {
   ano = null;
   brand = null;
   model = null;  
-  carroFiltrado1 = null
+  // carroFiltrado1 = null
 
   return res.json({ carrosFiltrados: response })
 });
@@ -100,17 +100,24 @@ server.get('/cars/result/v2', (req, res) => {
 
   const {filter} = req.body;
 
-  let carrosFiltradosV2 = carros.cars.filter(( carro ) => carro.marca === filter.marca )
-
-  if(filter.model){
-    carrosFiltradosV2 = carrosFiltradosV2.filter(( carro ) => carro.modelo === filter.modelo ) 
-  }
-  if(filter.ano){
-    carrosFiltradosV2 = carrosFiltradosV2.filter(( carro ) => carro.ano === filter.ano)    
-  }
+  const carrosFiltradosV2 = filterObjectFilter(filter)
 
   return res.json( carrosFiltradosV2 )
   
 })
+
+function filterObjectFilter(toFilterObject){
+
+  const toFilterObjectKeys = Object.keys(toFilterObject);
+  let filteredObject = carros.cars;
+
+  toFilterObjectKeys.forEach((filterKey) => {
+    if (toFilterObject[filterKey]) {
+      filteredObject = filteredObject.filter((carro) => carro[filterKey] === toFilterObject[filterKey]);
+    }
+  });
+
+  return filteredObject;
+}
 
 server.listen(3000);
