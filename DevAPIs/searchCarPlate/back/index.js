@@ -5,8 +5,6 @@ const cors = require("cors");
 const server = express();
 server.use(express.json());
 
-var carroFiltrado1, carroFiltrado2, brand, model, ano;
-
 // Lê o arquivo JSON
 fs.readFile("./carsPlate_DB.json", (err, data) => {
   if (err) {
@@ -26,41 +24,53 @@ server.get("/cars", (req, res) => {
   return res.json(carros);
 });
 
+function isNeed(req, res, next) {
+  const { need } = req.body;
+  const needKeys = Object.keys(need);
+  
+  if (!need || needKeys[0] === undefined) {
+    return res
+    .status(400)
+    .json({ error: "Estrutura errada! Cheque como dever ser a solicitação" });
+  }
+ 
+ return next();
+}
+
+
 // Endpoint para mostrar todos os valores com base no que vc precisa "need"
-server.post('/cars/search', (req, res) => {
+server.post('/cars/search', isNeed,(req, res) => {
+  const { filter } = req.body;
+  const { need } = req.body;
 
-  const {filter} = req.body;
-  const {need} = req.body;
-
-  const carrosFiltrados = filterObjectFilter(filter);
+  const carrosFiltrados = filterObject(filter);
 
   const filterItem = Object.keys(need)[0];
   
-  const valorCarrosSemRepetidos = Array.from(new Set(carrosFiltrados.map(( carro ) => carro[filterItem] )));
+  const valorCarrosSemRepetidos = Array.from(new Set(carrosFiltrados.map(( carro ) =>  carro[filterItem] )));
   
-  const response = valorCarrosSemRepetidos.sort();
+  const response = valorCarrosSemRepetidos.sort().map( ( carro ) => ({ [filterItem]:  carro }) );
   
-  return res.json( {"result": response} )
+  return res.json( {"result": response } )
 })
 
 // Endpoint para mostrar todos os carros com base no filtro
 server.post('/cars/result/v2', (req, res) => {
 
-  const {filter} = req.body;
+  const { filter }  = req.body;
 
-  const carrosFiltradosV2 = filterObjectFilter(filter)
+  const carrosFiltradosV2 = filterObject(filter)
 
-  return res.json( {"result": carrosFiltradosV2} )
+  return res.json( { "result": carrosFiltradosV2 } )
   
 })
 
-function filterObjectFilter(toFilterObject){
-
+function filterObject(toFilterObject){
   const toFilterObjectKeys = Object.keys(toFilterObject);
   let filteredObject = carros.cars;
 
   toFilterObjectKeys.forEach((filterKey) => {
-    if (toFilterObject[filterKey]) {
+    if ( toFilterObject[filterKey] ) {
       filteredObject = filteredObject.filter((carro) => carro[filterKey] === toFilterObject[filterKey]);
     }
   });
