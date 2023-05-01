@@ -29,7 +29,7 @@ function getCarro(placa) {
     })
   };
 
-  const url = `http://localhost:3000/cars/result/v2`;
+  const url = `http://localhost:3000/cars/search`;
   
   fetch(url, options)
   .then((res) => res.json())
@@ -64,27 +64,55 @@ function setCampos() {
 }
 
 function getMarcasSelect() {
-  // endpoint para pegar no backend as marcas !!!//
-  const url = `http://localhost:3000/cars/brand`;
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      filter: {
+        "": ""
+      },
+      need: {
+        marca: ""
+      }
+    })
+  };
 
-  fetch(url)
+  const url = `http://localhost:3000/cars/search`;
+
+  fetch(url, options)
     .then((res) => res.json())
     .then((data) => {
-      const opcoes = data.carros.map((car) => car.marca);
-
-      popularSelect(opcoes);
+      const opcoes = data.result.map((car) => car.marca);
+      popularSelect(data.result);
     });
 }
 
 function getModelosSelect() {
   const marca = marcasSelect.options[marcasSelect.selectedIndex].innerText;
-  // endpoint para pegar no backend as marcas !!!//
-  const url = `http://localhost:3000/cars/brand/${marca}`;
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      filter: {
+        marca: marca
+      },
+      need: {
+        modelo: ""
+      }
+    })
+  };
 
-  fetch(url)
+  const url = `http://localhost:3000/cars/search`;
+
+
+  fetch(url, options)
     .then((res) => res.json())
     .then((data) => {
-      const opcoes = data.modelos;
+      const opcoes = data.result;
 
       popularSelectModelos(opcoes);
     });
@@ -92,41 +120,62 @@ function getModelosSelect() {
 
 function getAnosSelect() {
   const modelo = modelosSelect.options[modelosSelect.selectedIndex].innerText;
-  // endpoint para pegar no backend as modelos !!!//
-  const url = `http://localhost:3000/cars/model/${modelo}`;
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      filter: {
+        modelo: modelo
+      },
+      need: {
+        ano: ""
+      }
+    })
+  };
 
-  fetch(url)
+  const url = `http://localhost:3000/cars/search`;
+
+
+  fetch(url, options)
     .then((res) => res.json())
     .then((data) => {
-      const opcoes = data.anos;
+      const opcoes = data.result;
 
       popularSelectAnos(opcoes);
     });
 }
 
-function sendApiAnos() {
-  const ano = anosSelect.options[anosSelect.selectedIndex].innerText;
-
-  const url = `http://localhost:3000/cars/final/${ano}`;
-
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => {});
-}
-
 function getVeiculos() {
-  const url = `http://localhost:3000/cars/result`;
 
-  fetch(url)
+  const marca = marcasSelect.options[marcasSelect.selectedIndex];
+  const modelo = modelosSelect.options[modelosSelect.selectedIndex];
+  const ano = anosSelect.options[anosSelect.selectedIndex];
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      filter: {
+        marca: marca.value === '' ? '' : marca.innerText,
+        modelo: modelo.value === '' ? '' : modelo.innerText,
+        ano: ano.value === '' ? '' : ano.innerText,
+      }
+    })
+  };
+
+  const url = `http://localhost:3000/cars/result/v2`;
+
+
+  fetch(url, options)
     .then((res) => res.json())
     .then((data) => {
-      carros = data.carrosFiltrados;
+      carros = data.result;
       popularLista(carros);
     });
-
-  // anosSelect.setAttribute("disabled", "true");
-  // marcasSelect.setAttribute("disabled", "true");
-  // modelosSelect.setAttribute("disabled", "true");
 }
 
 function resetBusca() {
@@ -137,17 +186,13 @@ function resetBusca() {
   popularSelectAnos(reset);
 
   table.setAttribute("style", "display: none");
-
-  // anosSelect.removeAttribute("disabled");
-  // marcasSelect.removeAttribute("disabled");
-  // modelosSelect.removeAttribute("disabled");
 }
 
 function popularSelect(opcoes) {
   // cria as opções e adiciona ao elemento select
   for (let i = 0; i < opcoes.length; i++) {
     let option = document.createElement("option");
-    option.text = opcoes[i];
+    option.text = opcoes[i].marca;
     option.value = i;
     marcasSelect.appendChild(option);
   }
@@ -216,10 +261,12 @@ function popularLista(carros) {
     td_placa.innerText = carro.placa;
   }
 
+  
   // Rola a página até a table gerada.
   const scrollTopPos = table.offsetTop;
   document.documentElement.scrollTop = scrollTopPos;
   document.body.scrollTop = scrollTopPos;
 }
 
-// getMarcasSelect();
+
+getMarcasSelect();
