@@ -25,18 +25,17 @@ server.get("/cars", (req, res) => {
 });
 
 function isNeed(req, res, next) {
-  const { need } = req.body;
-  const needKeys = Object.keys(need);
-  
-  if (!need || needKeys[0] === undefined) {
+  const need = req.body.need ?? {};
+
+  const needKeys = Object.keys(need)[0] || false;
+    
+  if (!need || !needKeys)
     return res
-    .status(400)
-    .json({ error: "Estrutura errada! Cheque como dever ser a solicitação" });
-  }
+      .status(400)
+      .json({ error: "Estrutura errada! Cheque como dever ser a solicitação" });
  
  return next();
 }
-
 
 // Endpoint para mostrar todos os valores com base no que vc precisa "need"
 server.post('/cars/search', isNeed,(req, res) => {
@@ -65,6 +64,7 @@ server.post('/cars/result/v2', (req, res) => {
   
 })
 
+// Filtra o obj que vier
 function filterObject(toFilterObject){
   const toFilterObjectKeys = Object.keys(toFilterObject);
   let filteredObject = carros.cars;
