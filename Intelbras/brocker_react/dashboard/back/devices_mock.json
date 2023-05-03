@@ -1,0 +1,25 @@
+{
+  "devices": [
+    {
+      "id": 0,
+      "produto": "Placa modem XYZ",
+      "quantidade": 25,
+      "quatidadeFinalCiclo": 100,
+      "status": true
+    },
+    {
+      "id": 1,
+      "produto": "Placa modem ABC",
+      "quantidade": 50,
+      "quatidadeFinalCiclo": 150,
+      "status": true
+    },
+    {
+      "id": 2,
+      "produto": "Placa modem HJX",
+      "quantidade": 65,
+      "quatidadeFinalCiclo": 130,
+      "status": true
+    }
+  ]
+}
