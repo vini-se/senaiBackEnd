@@ -2,8 +2,8 @@ const mqtt = require('mqtt');
 
 const brokerUrl = 'mqtt://localhost';
 const options = {
-  clientId: 'publisher',
-  clean: true
+  clientId: 'device1_HJX',
+  clean: false,
 };
 
 const client = mqtt.connect(brokerUrl, options);
@@ -26,7 +26,8 @@ function updateDb(status = true){
 
 function setPublish(topic, message) {
   message = JSON.stringify(message);
-  client.publish(topic, message)
+  client.publish(topic, message);
+  console.clear();
   console.log(`Mensagem publicada: ${JSON.stringify(message)}`);
 }
 

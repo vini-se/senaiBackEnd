@@ -3,7 +3,7 @@ const mqtt = require('mqtt');
 const brokerUrl = 'mqtt://localhost';
 const options = {
   clientId: 'subscriber',
-  clean: true
+  clean: false,
 };
 
 const client = mqtt.connect(brokerUrl, options);
@@ -15,6 +15,7 @@ client.subscribe(topic);
 
 client.on('message', (topic, message) => {
   parsedMessage = JSON.parse(message.toString());
+  console.log(`------------------------------------------------`);
   console.log(`Mensagem recebida: ${JSON.stringify(parsedMessage)}`);
   setMessage(parsedMessage)
 });
@@ -22,4 +23,5 @@ client.on('message', (topic, message) => {
 function setMessage(message){
   // Código SQL para salvar a mensagem(progresso) ao **id** que veio pela mensagem
   console.table(message);
+  console.log(`------------------------------------------------`);
 }
