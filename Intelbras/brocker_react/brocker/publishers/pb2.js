@@ -9,7 +9,7 @@ const options = {
 const client = mqtt.connect(brokerUrl, options);
 
 const topic = 'updateDB';
-let ciclo = 0
+let ciclo = 1
 
 function updateDb(status = true){
   const message = {
