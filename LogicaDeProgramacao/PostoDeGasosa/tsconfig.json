@@ -1,20 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "es6",
+    "target": "es2018",
+    "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
-    "jsx": "react",
-    "moduleResolution": "node",
-    "baseUrl": "./src",
-    "outDir": "./dist",
-    "sourceMap": false,            
-    "declaration": false            
+    "outDir": "dist",
+    "rootDir": "src"
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
